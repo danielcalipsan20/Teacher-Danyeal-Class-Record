@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TD-PH Teacher Management Portal</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#f4f8fa;
+    color:#24343d;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    width:250px;
+    height:100vh;
+    background:#083f46;
+    color:white;
+    padding:24px 16px;
+    z-index:1000;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:5px 10px 25px;
+    border-bottom:1px solid rgba(255,255,255,.15);
+    margin-bottom:20px;
+}
+
+.logo-box{
+    width:45px;
+    height:45px;
+    border-radius:12px;
+    background:#21c7bd;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:18px;
+    font-weight:bold;
+    color:#06383d;
+}
+
+.logo-text strong{
+    display:block;
+    font-size:17px;
+}
+
+.logo-text span{
+    font-size:11px;
+    opacity:.75;
+}
+
+.nav{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.nav button{
+    border:0;
+    background:transparent;
+    color:#dcebed;
+    padding:13px 14px;
+    border-radius:9px;
+    text-align:left;
+    cursor:pointer;
+    font-size:14px;
+    transition:.2s;
+}
+
+.nav button:hover,
+.nav button.active{
+    background:#11616a;
+    color:white;
+}
+
+.logout{
+    position:absolute;
+    bottom:20px;
+    left:16px;
+    right:16px;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+    margin-left:250px;
+    min-height:100vh;
+}
+
+.topbar{
+    background:white;
+    border-bottom:1px solid #e3eaed;
+    padding:18px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.topbar h2{
+    font-size:20px;
+}
+
+.teacher{
+    font-size:13px;
+    color:#687981;
+}
+
+.content{
+    padding:30px;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.welcome{
+    margin-bottom:25px;
+}
+
+.welcome h1{
+    font-size:27px;
+    margin-bottom:7px;
+}
+
+.welcome p{
+    color:#73848b;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin-bottom:25px;
+}
+
+.stat{
+    background:white;
+    border-radius:14px;
+    padding:20px;
+    border:1px solid #e4ebed;
+}
+
+.stat small{
+    color:#718087;
+}
+
+.stat h2{
+    margin-top:8px;
+    font-size:27px;
+}
+
+.card{
+    background:white;
+    border:1px solid #e4ebed;
+    border-radius:14px;
+    padding:22px;
+    margin-bottom:22px;
+}
+
+.card-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.card-header h3{
+    font-size:17px;
+}
+
+.btn{
+    border:0;
+    border-radius:8px;
+    padding:10px 15px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.btn-primary{
+    background:#16b9af;
+    color:white;
+}
+
+.btn-secondary{
+    background:#edf4f5;
+    color:#31535b;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table-wrap{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:13px 12px;
+    border-bottom:1px solid #edf1f2;
+    text-align:left;
+    font-size:13px;
+}
+
+th{
+    background:#f7fafb;
+    color:#62747b;
+    font-size:12px;
+}
+
+.status{
+    padding:5px 9px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.present{
+    background:#e5f7ee;
+    color:#17814e;
+}
+
+.absent{
+    background:#fde9e9;
+    color:#bd3636;
+}
+
+.late{
+    background:#fff3d9;
+    color:#9b6a00;
+}
+
+/* =========================
+   STUDENTS
+========================= */
+
+.toolbar{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:20px;
+}
+
+.search{
+    border:1px solid #dce5e8;
+    border-radius:8px;
+    padding:11px 14px;
+    width:280px;
+    outline:none;
+}
+
+.student-name{
+    color:#0d7478;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.student-name:hover{
+    text-decoration:underline;
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+.back-btn{
+    background:none;
+    border:0;
+    color:#117c82;
+    cursor:pointer;
+    margin-bottom:15px;
+    font-weight:bold;
+}
+
+.profile-head{
+    background:white;
+    border:1px solid #e4ebed;
+    border-radius:14px;
+    padding:22px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.profile-title{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.avatar{
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    background:#dff7f4;
+    color:#08746f;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    font-size:20px;
+}
+
+.profile-tabs{
+    display:flex;
+    gap:5px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+}
+
+.profile-tabs button{
+    border:1px solid #dce5e8;
+    background:white;
+    padding:10px 13px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:12px;
+}
+
+.profile-tabs button.active{
+    background:#0d7478;
+    color:white;
+    border-color:#0d7478;
+}
+
+.profile-section{
+    display:none;
+}
+
+.profile-section.active{
+    display:block;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+
+.form-group.full{
+    grid-column:1/-1;
+}
+
+label{
+    font-size:12px;
+    font-weight:bold;
+    color:#53666d;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    border:1px solid #dce5e8;
+    border-radius:8px;
+    padding:11px 12px;
+    outline:none;
+    background:white;
+}
+
+textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+/* =========================
+   SCHEDULE
+========================= */
+
+.schedule-grid{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:10px;
+}
+
+.day{
+    border:1px solid #dfe8ea;
+    border-radius:10px;
+    padding:14px 8px;
+    text-align:center;
+    background:#fafcfc;
+}
+
+.day strong{
+    display:block;
+    font-size:12px;
+    margin-bottom:8px;
+}
+
+.day span{
+    font-size:12px;
+    color:#087a78;
+}
+
+/* =========================
+   ASSESSMENT
+========================= */
+
+.rating{
+    font-weight:bold;
+    color:#087b76;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+.mobile-menu{
+    display:none;
+    border:0;
+    background:#083f46;
+    color:white;
+    padding:10px 12px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+@media(max-width:900px){
+
+    .sidebar{
+        transform:translateX(-100%);
+        transition:.25s;
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+    .mobile-menu{
+        display:block;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .schedule-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .content{
+        padding:18px;
+    }
+
+    .toolbar{
+        flex-direction:column;
+    }
+
+    .search{
+        width:100%;
+    }
+
+    .profile-head{
+        align-items:flex-start;
+        gap:15px;
+        flex-direction:column;
+    }
+}
+
+@media(max-width:500px){
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .schedule-grid{
+        grid-template-columns:1fr;
+    }
+
+    .topbar{
+        padding:15px;
+    }
+
+    .topbar h2{
+        font-size:17px;
+    }
+
+    .content{
+        padding:14px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="logo">
+        <div class="logo-box">TD</div>
+
+        <div class="logo-text">
+            <strong>TD-PH</strong>
+            <span>Teacher Management Portal</span>
+        </div>
+    </div>
+
+    <nav class="nav">
+
+        <button class="active" onclick="showPage('dashboard',this)">
+            🏠 Dashboard
+        </button>
+
+        <button onclick="showPage('students',this)">
+            👨‍🎓 Students
+        </button>
+
+        <button onclick="showPage('evaluation',this)">
+            📝 Evaluation
+        </button>
+
+        <button onclick="showPage('records',this)">
+            📋 Class Records
+        </button>
+
+        <button onclick="showPage('contracts',this)">
+            📄 Contracts
+        </button>
+
+        <button onclick="showPage('payments',this)">
+            💳 Payments
+        </button>
+
+    </nav>
+
+    <button class="nav logout">
+        🚪 Logout
+    </button>
+
+</aside>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="main">
+
+    <header class="topbar">
+
+        <div>
+            <button class="mobile-menu" onclick="toggleSidebar()">☰</button>
+        </div>
+
+        <div>
+            <h2 id="pageTitle">Dashboard</h2>
+        </div>
+
+        <div class="teacher">
+            Teacher Danyeal
+        </div>
+
+    </header>
+
+
+    <div class="content">
+
+
+<!-- =========================
+     DASHBOARD
+========================= -->
+
+<section id="dashboard" class="page active">
+
+    <div class="welcome">
+        <h1>Welcome, Teacher Danyeal! 👋</h1>
+        <p>Manage your students, classes, evaluations, contracts and payments.</p>
+    </div>
+
+    <div class="stats">
+
+        <div class="stat">
+            <small>Total Students</small>
+            <h2>3</h2>
+        </div>
+
+        <div class="stat">
+            <small>Total Classes</small>
+            <h2>48</h2>
+        </div>
+
+        <div class="stat">
+            <small>Evaluations</small>
+            <h2>12</h2>
+        </div>
+
+        <div class="stat">
+            <small>Active Students</small>
+            <h2>3</h2>
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <div class="card-header">
+            <h3>Upcoming Classes</h3>
+        </div>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Student</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Royhaan</td>
+                        <td>Monday</td>
+                        <td>7:00 PM</td>
+                        <td><span class="status present">Upcoming</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Ryan</td>
+                        <td>Tuesday</td>
+                        <td>7:30 PM</td>
+                        <td><span class="status present">Upcoming</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>Khoi</td>
+                        <td>Friday</td>
+                        <td>7:00 PM</td>
+                        <td><span class="status present">Upcoming</span></td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     STUDENTS
+========================= -->
+
+<section id="students" class="page">
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h3>Students</h3>
+
+            <button class="btn btn-primary">
+                + Add Student
+            </button>
+
+        </div>
+
+        <div class="toolbar">
+
+            <input
+                class="search"
+                placeholder="🔍 Search student..."
+            >
+
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Student ID</th>
+                        <th>Package</th>
+                        <th>Classes</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td
+                            class="student-name"
+                            onclick="openStudent()"
+                        >
+                            Royhaan
+                        </td>
+
+                        <td>TD-001</td>
+
+                        <td>P20</td>
+
+                        <td>12 / 20</td>
+
+                        <td>
+                            <span class="status present">
+                                Active
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td
+                            class="student-name"
+                            onclick="openStudent()"
+                        >
+                            Ryan
+                        </td>
+
+                        <td>TD-002</td>
+
+                        <td>P30</td>
+
+                        <td>18 / 30</td>
+
+                        <td>
+                            <span class="status present">
+                                Active
+                            </span>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td
+                            class="student-name"
+                            onclick="openStudent()"
+                        >
+                            Khoi
+                        </td>
+
+                        <td>TD-003</td>
+
+                        <td>P20</td>
+
+                        <td>8 / 20</td>
+
+                        <td>
+                            <span class="status present">
+                                Active
+                            </span>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     STUDENT PROFILE
+========================= -->
+
+<section id="studentProfile" class="page">
+
+    <button class="back-btn" onclick="showPage('students')">
+        ← Back to Students
+    </button>
+
+
+    <div class="profile-head">
+
+        <div class="profile-title">
+
+            <div class="avatar">
+                R
+            </div>
+
+            <div>
+
+                <h2>Royhaan</h2>
+
+                <p style="color:#718087;font-size:13px">
+                    Student ID: TD-001
+                </p>
+
+            </div>
+
+        </div>
+
+        <span class="status present">
+            Active Student
+        </span>
+
+    </div>
+
+
+    <div class="profile-tabs">
+
+        <button
+            class="active"
+            onclick="profileTab('info',this)"
+        >
+            Student Information
+        </button>
+
+        <button onclick="profileTab('schedule',this)">
+            Preferred Schedule
+        </button>
+
+        <button onclick="profileTab('assessment',this)">
+            Assessment
+        </button>
+
+        <button onclick="profileTab('classrecord',this)">
+            Class Record
+        </button>
+
+        <button onclick="profileTab('evaluationProfile',this)">
+            Evaluation
+        </button>
+
+        <button onclick="profileTab('contract',this)">
+            Contract
+        </button>
+
+        <button onclick="profileTab('payment',this)">
+            Payment Receipt
+        </button>
+
+    </div>
+
+
+<!-- STUDENT INFORMATION -->
+
+<div id="info" class="profile-section active">
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h3>Student Information</h3>
+
+            <button class="btn btn-secondary">
+                Edit Information
+            </button>
+
+        </div>
+
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>Enrolled Date</label>
+
+                <input
+                    type="date"
+                    value="2026-09-01"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Student Name</label>
+
+                <input value="Royhaan">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Student ID No.</label>
+
+                <input value="TD-001">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Class Duration</label>
+
+                <input value="25 minutes">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Parent Gmail</label>
+
+                <input value="parent@gmail.com">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Facebook Link</label>
+
+                <input
+                    value="https://facebook.com/"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>WeChat QR Code</label>
+
+                <input type="file">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>ClassIn QR Code</label>
+
+                <input type="file">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- SCHEDULE -->
+
+<div id="schedule" class="profile-section">
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h3>Preferred Class Schedule</h3>
+
+            <button class="btn btn-primary">
+                Edit Schedule
+            </button>
+
+        </div>
+
+
+        <div class="schedule-grid">
+
+            <div class="day">
+                <strong>Monday</strong>
+                <span>7:00 PM</span>
+            </div>
+
+            <div class="day">
+                <strong>Tuesday</strong>
+                <span>—</span>
+            </div>
+
+            <div class="day">
+                <strong>Wednesday</strong>
+                <span>7:00 PM</span>
+            </div>
+
+            <div class="day">
+                <strong>Thursday</strong>
+                <span>—</span>
+            </div>
+
+            <div class="day">
+                <strong>Friday</strong>
+                <span>7:00 PM</span>
+            </div>
+
+            <div class="day">
+                <strong>Saturday</strong>
+                <span>—</span>
+            </div>
+
+            <div class="day">
+                <strong>Sunday</strong>
+                <span>7:30 PM</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ASSESSMENT -->
+
+<div id="assessment" class="profile-section">
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <div>
+                <h3>Student Assessment & Examination</h3>
+
+                <p style="font-size:12px;color:#74838a;margin-top:5px">
+                    Assessment is conducted every 10 lessons.
+                </p>
+            </div>
+
+            <button class="btn btn-primary">
+                + Add Assessment
+            </button>
+
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Assessment</th>
+                        <th>Date</th>
+                        <th>Score</th>
+                        <th>Rating</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>1st Assessment</td>
+                        <td>Sept 10, 2026</td>
+                        <td>92%</td>
+                        <td class="rating">Excellent</td>
+                    </tr>
+
+                    <tr>
+                        <td>2nd Assessment</td>
+                        <td>—</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- CLASS RECORD -->
+
+<div id="classrecord" class="profile-section">
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h3>Class Record</h3>
+
+            <button class="btn btn-primary">
+                + Add Class Record
+            </button>
+
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Class No.</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Day</th>
+                        <th>Attendance</th>
+                        <th>Late</th>
+                        <th>Lesson</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>1</td>
+                        <td>Sept 1</td>
+                        <td>7:00 PM</td>
+                        <td>Monday</td>
+
+                        <td>
+                            <span class="status present">
+                                Present
+                            </span>
+                        </td>
+
+                        <td>No</td>
+
+                        <td>
+                            <a href="#" style="color:#087b76">
+                                View Lesson
+                            </a>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>2</td>
+                        <td>Sept 3</td>
+                        <td>7:00 PM</td>
+                        <td>Wednesday</td>
+
+                        <td>
+                            <span class="status late">
+                                Present
+                            </span>
+                        </td>
+
+                        <td>10 mins</td>
+
+                        <td>
+                            <a href="#" style="color:#087b76">
+                                View Lesson
+                            </a>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>3</td>
+                        <td>Sept 5</td>
+                        <td>7:00 PM</td>
+                        <td>Friday</td>
+
+                        <td>
+                            <span class="status absent">
+                                Absent
+                            </span>
+                        </td>
+
+                        <td>—</td>
+
+                        <td>—</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- EVALUATION -->
+
+<div id="evaluationProfile" class="profile-section">
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h3>Student Evaluation</h3>
+
+            <button class="btn btn-primary">
+                + New Evaluation
+            </button>
+
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Class</th>
+                        <th>Date</th>
+                        <th>Lesson</th>
+                        <th>Score</th>
+                        <th>Rating</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Lesson 10</td>
+                        <td>Sept 15</td>
+                        <td>Daily Activities</td>
+                        <td>92%</td>
+                        <td class="rating">Excellent</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- CONTRACT -->
+
+<div id="contract" class="profile-section">
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h3>Student Contract</h3>
+
+            <button class="btn btn-primary">
+                View Contract
+            </button>
+
+        </div>
+
+
+        <div style="line-height:1.7;font-size:13px">
+
+            <h4>A. STUDENT INFORMATION</h4>
+
+            <br>
+
+            <h4>B. SELECTED PACKAGE</h4>
+
+            <br>
+
+            <h4>C. CLASS ARRANGEMENT</h4>
+
+            <p>
+                ✓ Each class is 25 minutes long.
+            </p>
+
+            <p>
+                ✓ Classes are conducted as private 1-on-1 sessions.
+            </p>
+
+            <p>
+                ✓ The class schedule will be arranged by mutual agreement
+                between the teacher and parent/student.
+            </p>
+
+            <p>
+                ✓ There is no fixed completion period for the purchased
+                classes unless otherwise agreed upon.
+            </p>
+
+            <p>
+                ✓ The student is expected to attend the agreed class
+                schedule on time.
+            </p>
+
+            <br>
+
+            <h4>D. LESSON MATERIALS</h4>
+
+            <p>
+                ✓ Learning materials will be prepared by the Teacher based
+                on the student's learning needs, level, and/or the parent's
+                requested topic.
+            </p>
+
+            <br>
+
+            <h4>H. ASSESSMENT, PROGRESS REPORT & CERTIFICATE</h4>
+
+            <p>
+                ✓ Every 10th lesson will serve as an assessment, test,
+                or review to evaluate the student's understanding and progress.
+            </p>
+
+            <br>
+
+            <h4>I. AGREEMENT</h4>
+
+            <p>
+                By signing this contract, the parent/student confirms that
+                they have read, understood, and agreed to the terms and
+                conditions of the Teacher Danyeal Private English Class.
+            </p>
+
+            <br>
+
+            <p>
+                <strong>Parent Name:</strong> Hà Thị Cúc
+            </p>
+
+            <p>
+                <strong>Parent Signature:</strong>
+                [ Upload / View ]
+            </p>
+
+            <br>
+
+            <p>
+                <strong>Teacher:</strong> Teacher Danyeal
+            </p>
+
+            <p>
+                <strong>Teacher Signature:</strong>
+                [ Upload / View ]
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- PAYMENT -->
+
+<div id="payment" class="profile-section">
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h3>Payment Receipts</h3>
+
+            <button class="btn btn-primary">
+                + Add Payment
+            </button>
+
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Date</th>
+                        <th>Package</th>
+                        <th>Classes</th>
+                        <th>Amount Paid</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>Sept 1, 2026</td>
+                        <td>P20</td>
+                        <td>20</td>
+                        <td>₱1,300</td>
+
+                        <td>
+                            <span class="status present">
+                                Paid
+                            </span>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3 style="margin-bottom:18px">
+            Payment Receipt
+        </h3>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label>Student Name</label>
+                <input value="Royhaan">
+            </div>
+
+            <div class="form-group">
+                <label>Student ID</label>
+                <input value="TD-001">
+            </div>
+
+            <div class="form-group">
+                <label>Country</label>
+                <input value="Thailand">
+            </div>
+
+            <div class="form-group">
+                <label>Package / Service</label>
+                <input value="Private English Classes">
+            </div>
+
+            <div class="form-group">
+                <label>Number of Classes</label>
+                <input value="20">
+            </div>
+
+            <div class="form-group">
+                <label>Total Package Amount</label>
+                <input value="₱1,300">
+            </div>
+
+            <div class="form-group">
+                <label>Amount Paid</label>
+                <input value="₱1,300">
+            </div>
+
+            <div class="form-group">
+                <label>Remaining Balance</label>
+                <input value="₱0">
+            </div>
+
+            <div class="form-group">
+                <label>Payment Status</label>
+                <select>
+                    <option>Paid</option>
+                    <option>Partial</option>
+                    <option>Pending</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Mode of Payment</label>
+                <input value="Bank Transfer">
+            </div>
+
+            <div class="form-group">
+                <label>Transaction Reference No.</label>
+                <input value="TRX-20260901-001">
+            </div>
+
+            <div class="form-group">
+                <label>Date of Payment</label>
+                <input type="date">
+            </div>
+
+            <div class="form-group full">
+                <label>Payment Description</label>
+
+                <textarea>Payment received for English Private Classes / Learning Package.</textarea>
+
+            </div>
+
+        </div>
+
+        <br>
+
+        <p style="font-size:13px;line-height:1.8">
+            <strong>Received by:</strong><br>
+            Teacher Danyeal<br>
+            Signature: [ Upload / View ]
+        </p>
+
+        <br>
+
+        <p style="font-size:13px;color:#607179">
+            Thank you for your payment!<br>
+            Please keep this receipt for your records.
+        </p>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     GLOBAL PAGES
+========================= -->
+
+<section id="evaluation" class="page">
+
+    <div class="card">
+
+        <div class="card-header">
+
+            <h3>Evaluation</h3>
+
+            <button class="btn btn-primary">
+                + New Evaluation
+            </button>
+
+        </div>
+
+        <p style="color:#718087;font-size:13px">
+            This section will contain the existing Teacher Danyeal
+            evaluation system and EmailJS class memo feature.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section id="records" class="page">
+
+    <div class="card">
+
+        <div class="card-header">
+            <h3>Class Records</h3>
+        </div>
+
+        <p style="color:#718087;font-size:13px">
+            All student class records will be shown here.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section id="contracts" class="page">
+
+    <div class="card">
+
+        <div class="card-header">
+            <h3>Contracts</h3>
+        </div>
+
+        <p style="color:#718087;font-size:13px">
+            Student contracts will be managed here.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section id="payments" class="page">
+
+    <div class="card">
+
+        <div class="card-header">
+            <h3>Payments</h3>
+        </div>
+
+        <p style="color:#718087;font-size:13px">
+            Payment receipts and renewal records will be managed here.
+        </p>
+
+    </div>
+
+</section>
+
+
+    </div>
+
+</main>
+
+
+<script>
+
+/* =========================
+   PAGE NAVIGATION
+========================= */
+
+function showPage(pageId,button){
+
+    document.querySelectorAll('.page')
+        .forEach(page=>{
+            page.classList.remove('active');
+        });
+
+    const page=document.getElementById(pageId);
+
+    if(page){
+        page.classList.add('active');
+    }
+
+    document.querySelectorAll('.nav button')
+        .forEach(btn=>{
+            btn.classList.remove('active');
+        });
+
+    if(button){
+        button.classList.add('active');
+    }
+
+    const titles={
+        dashboard:'Dashboard',
+        students:'Students',
+        evaluation:'Evaluation',
+        records:'Class Records',
+        contracts:'Contracts',
+        payments:'Payments'
+    };
+
+    document.getElementById('pageTitle').textContent =
+        titles[pageId] || 'Student Profile';
+
+    document.getElementById('sidebar')
+        .classList.remove('open');
+}
+
+
+/* =========================
+   STUDENT PROFILE
+========================= */
+
+function openStudent(){
+
+    showPage('studentProfile');
+
+    document.getElementById('pageTitle').textContent =
+        'Student Profile';
+
+}
+
+
+/* =========================
+   PROFILE TABS
+========================= */
+
+function profileTab(tabId,button){
+
+    document.querySelectorAll('.profile-section')
+        .forEach(section=>{
+            section.classList.remove('active');
+        });
+
+    const section=document.getElementById(tabId);
+
+    if(section){
+        section.classList.add('active');
+    }
+
+    document.querySelectorAll('.profile-tabs button')
+        .forEach(btn=>{
+            btn.classList.remove('active');
+        });
+
+    button.classList.add('active');
+}
+
+
+/* =========================
+   MOBILE SIDEBAR
+========================= */
+
+function toggleSidebar(){
+
+    document.getElementById('sidebar')
+        .classList.toggle('open');
+
+}
+
+</script>
+
+</body>
+</html>
