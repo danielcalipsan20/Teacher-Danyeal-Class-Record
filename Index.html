@@ -3,531 +3,491 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>TD-PH Teacher Management Portal</title>
 
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-    font-family:Arial,Helvetica,sans-serif;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-body{
-    background:#f4f8fa;
-    color:#24343d;
+body {
+    background: #f4f7fb;
+    color: #1f2937;
 }
 
-/* =========================
-   SIDEBAR
-========================= */
+/* ================= SIDEBAR ================= */
 
-.sidebar{
-    position:fixed;
-    left:0;
-    top:0;
-    width:250px;
-    height:100vh;
-    background:#083f46;
-    color:white;
-    padding:24px 16px;
-    z-index:1000;
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 250px;
+    height: 100vh;
+    background: #172554;
+    color: white;
+    padding: 25px 15px;
+    overflow-y: auto;
 }
 
-.logo{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:5px 10px 25px;
-    border-bottom:1px solid rgba(255,255,255,.15);
-    margin-bottom:20px;
+.logo {
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-.logo-box{
-    width:45px;
-    height:45px;
-    border-radius:12px;
-    background:#21c7bd;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:18px;
-    font-weight:bold;
-    color:#06383d;
+.logo h2 {
+    font-size: 22px;
 }
 
-.logo-text strong{
-    display:block;
-    font-size:17px;
+.logo p {
+    font-size: 12px;
+    opacity: .7;
+    margin-top: 5px;
 }
 
-.logo-text span{
-    font-size:11px;
-    opacity:.75;
+.nav-btn {
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: white;
+    text-align: left;
+    padding: 13px 15px;
+    margin-bottom: 6px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
 }
 
-.nav{
-    display:flex;
-    flex-direction:column;
-    gap:6px;
+.nav-btn:hover,
+.nav-btn.active {
+    background: #2563eb;
 }
 
-.nav button{
-    border:0;
-    background:transparent;
-    color:#dcebed;
-    padding:13px 14px;
-    border-radius:9px;
-    text-align:left;
-    cursor:pointer;
-    font-size:14px;
-    transition:.2s;
+/* ================= MAIN ================= */
+
+.main {
+    margin-left: 250px;
+    padding: 25px;
 }
 
-.nav button:hover,
-.nav button.active{
-    background:#11616a;
-    color:white;
+.topbar {
+    background: white;
+    padding: 18px 22px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.05);
 }
 
-.logout{
-    position:absolute;
-    bottom:20px;
-    left:16px;
-    right:16px;
+.topbar h1 {
+    font-size: 22px;
 }
 
-/* =========================
-   MAIN
-========================= */
-
-.main{
-    margin-left:250px;
-    min-height:100vh;
+.teacher {
+    font-size: 14px;
+    color: #64748b;
 }
 
-.topbar{
-    background:white;
-    border-bottom:1px solid #e3eaed;
-    padding:18px 30px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+/* ================= SECTIONS ================= */
+
+.section {
+    display: none;
 }
 
-.topbar h2{
-    font-size:20px;
+.section.active {
+    display: block;
 }
 
-.teacher{
-    font-size:13px;
-    color:#687981;
+/* ================= CARDS ================= */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 25px;
 }
 
-.content{
-    padding:30px;
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.05);
 }
 
-.page{
-    display:none;
+.card h3 {
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 10px;
 }
 
-.page.active{
-    display:block;
+.card .number {
+    font-size: 28px;
+    font-weight: bold;
 }
 
-/* =========================
-   DASHBOARD
-========================= */
+/* ================= PANEL ================= */
 
-.welcome{
-    margin-bottom:25px;
+.panel {
+    background: white;
+    border-radius: 12px;
+    padding: 22px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.05);
 }
 
-.welcome h1{
-    font-size:27px;
-    margin-bottom:7px;
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
 }
 
-.welcome p{
-    color:#73848b;
+.panel-header h2 {
+    font-size: 18px;
 }
 
-.stats{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:18px;
-    margin-bottom:25px;
+/* ================= BUTTONS ================= */
+
+.btn {
+    border: none;
+    padding: 10px 15px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
 }
 
-.stat{
-    background:white;
-    border-radius:14px;
-    padding:20px;
-    border:1px solid #e4ebed;
+.btn-primary {
+    background: #2563eb;
+    color: white;
 }
 
-.stat small{
-    color:#718087;
+.btn-success {
+    background: #16a34a;
+    color: white;
 }
 
-.stat h2{
-    margin-top:8px;
-    font-size:27px;
+.btn-warning {
+    background: #f59e0b;
+    color: white;
 }
 
-.card{
-    background:white;
-    border:1px solid #e4ebed;
-    border-radius:14px;
-    padding:22px;
-    margin-bottom:22px;
+.btn-danger {
+    background: #dc2626;
+    color: white;
 }
 
-.card-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:18px;
+.btn-secondary {
+    background: #e5e7eb;
+    color: #374151;
 }
 
-.card-header h3{
-    font-size:17px;
+.btn:hover {
+    opacity: .85;
 }
 
-.btn{
-    border:0;
-    border-radius:8px;
-    padding:10px 15px;
-    cursor:pointer;
-    font-weight:bold;
+/* ================= TABLE ================= */
+
+.table-container {
+    overflow-x: auto;
 }
 
-.btn-primary{
-    background:#16b9af;
-    color:white;
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.btn-secondary{
-    background:#edf4f5;
-    color:#31535b;
+th,
+td {
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+    font-size: 13px;
 }
 
-/* =========================
-   TABLE
-========================= */
-
-.table-wrap{
-    overflow-x:auto;
+th {
+    background: #f8fafc;
+    color: #475569;
 }
 
-table{
-    width:100%;
-    border-collapse:collapse;
+.status {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
 }
 
-th,td{
-    padding:13px 12px;
-    border-bottom:1px solid #edf1f2;
-    text-align:left;
-    font-size:13px;
+.present {
+    background: #dcfce7;
+    color: #166534;
 }
 
-th{
-    background:#f7fafb;
-    color:#62747b;
-    font-size:12px;
+.absent {
+    background: #fee2e2;
+    color: #991b1b;
 }
 
-.status{
-    padding:5px 9px;
-    border-radius:20px;
-    font-size:11px;
-    font-weight:bold;
+.paid {
+    background: #dcfce7;
+    color: #166534;
 }
 
-.present{
-    background:#e5f7ee;
-    color:#17814e;
+.pending {
+    background: #fef3c7;
+    color: #92400e;
 }
 
-.absent{
-    background:#fde9e9;
-    color:#bd3636;
+/* ================= FORM ================= */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
 }
 
-.late{
-    background:#fff3d9;
-    color:#9b6a00;
+.form-group {
+    display: flex;
+    flex-direction: column;
 }
 
-/* =========================
-   STUDENTS
-========================= */
-
-.toolbar{
-    display:flex;
-    justify-content:space-between;
-    gap:12px;
-    margin-bottom:20px;
+.form-group.full {
+    grid-column: 1 / -1;
 }
 
-.search{
-    border:1px solid #dce5e8;
-    border-radius:8px;
-    padding:11px 14px;
-    width:280px;
-    outline:none;
-}
-
-.student-name{
-    color:#0d7478;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.student-name:hover{
-    text-decoration:underline;
-}
-
-/* =========================
-   PROFILE
-========================= */
-
-.back-btn{
-    background:none;
-    border:0;
-    color:#117c82;
-    cursor:pointer;
-    margin-bottom:15px;
-    font-weight:bold;
-}
-
-.profile-head{
-    background:white;
-    border:1px solid #e4ebed;
-    border-radius:14px;
-    padding:22px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:20px;
-}
-
-.profile-title{
-    display:flex;
-    align-items:center;
-    gap:15px;
-}
-
-.avatar{
-    width:58px;
-    height:58px;
-    border-radius:50%;
-    background:#dff7f4;
-    color:#08746f;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:bold;
-    font-size:20px;
-}
-
-.profile-tabs{
-    display:flex;
-    gap:5px;
-    flex-wrap:wrap;
-    margin-bottom:20px;
-}
-
-.profile-tabs button{
-    border:1px solid #dce5e8;
-    background:white;
-    padding:10px 13px;
-    border-radius:8px;
-    cursor:pointer;
-    font-size:12px;
-}
-
-.profile-tabs button.active{
-    background:#0d7478;
-    color:white;
-    border-color:#0d7478;
-}
-
-.profile-section{
-    display:none;
-}
-
-.profile-section.active{
-    display:block;
-}
-
-/* =========================
-   FORM
-========================= */
-
-.form-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:18px;
-}
-
-.form-group{
-    display:flex;
-    flex-direction:column;
-    gap:7px;
-}
-
-.form-group.full{
-    grid-column:1/-1;
-}
-
-label{
-    font-size:12px;
-    font-weight:bold;
-    color:#53666d;
+label {
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 6px;
 }
 
 input,
 select,
-textarea{
-    width:100%;
-    border:1px solid #dce5e8;
-    border-radius:8px;
-    padding:11px 12px;
-    outline:none;
-    background:white;
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+    outline: none;
 }
 
-textarea{
-    min-height:100px;
-    resize:vertical;
+textarea {
+    min-height: 100px;
+    resize: vertical;
 }
 
-/* =========================
-   SCHEDULE
-========================= */
-
-.schedule-grid{
-    display:grid;
-    grid-template-columns:repeat(7,1fr);
-    gap:10px;
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #2563eb;
 }
 
-.day{
-    border:1px solid #dfe8ea;
-    border-radius:10px;
-    padding:14px 8px;
-    text-align:center;
-    background:#fafcfc;
+/* ================= STUDENT PROFILE ================= */
+
+.student-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.day strong{
-    display:block;
-    font-size:12px;
-    margin-bottom:8px;
+.student-name {
+    font-size: 25px;
+    font-weight: bold;
 }
 
-.day span{
-    font-size:12px;
-    color:#087a78;
+.student-id {
+    color: #64748b;
+    margin-top: 5px;
 }
 
-/* =========================
-   ASSESSMENT
-========================= */
-
-.rating{
-    font-weight:bold;
-    color:#087b76;
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
 }
 
-/* =========================
-   MOBILE
-========================= */
-
-.mobile-menu{
-    display:none;
-    border:0;
-    background:#083f46;
-    color:white;
-    padding:10px 12px;
-    border-radius:8px;
-    cursor:pointer;
+.info-box {
+    background: #f8fafc;
+    padding: 15px;
+    border-radius: 8px;
 }
 
-@media(max-width:900px){
-
-    .sidebar{
-        transform:translateX(-100%);
-        transition:.25s;
-    }
-
-    .sidebar.open{
-        transform:translateX(0);
-    }
-
-    .main{
-        margin-left:0;
-    }
-
-    .mobile-menu{
-        display:block;
-    }
-
-    .stats{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .form-grid{
-        grid-template-columns:1fr;
-    }
-
-    .schedule-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .content{
-        padding:18px;
-    }
-
-    .toolbar{
-        flex-direction:column;
-    }
-
-    .search{
-        width:100%;
-    }
-
-    .profile-head{
-        align-items:flex-start;
-        gap:15px;
-        flex-direction:column;
-    }
+.info-box small {
+    display: block;
+    color: #64748b;
+    margin-bottom: 5px;
 }
 
-@media(max-width:500px){
+.info-box strong {
+    font-size: 14px;
+}
 
-    .stats{
-        grid-template-columns:1fr;
+/* ================= SCHEDULE ================= */
+
+.schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+
+.day {
+    background: #f8fafc;
+    padding: 15px 8px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.day strong {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.day span {
+    font-size: 12px;
+    color: #2563eb;
+}
+
+/* ================= QR ================= */
+
+.qr-box {
+    width: 160px;
+    height: 160px;
+    border: 2px dashed #cbd5e1;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+    margin-bottom: 10px;
+}
+
+.qr-section {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+/* ================= MODAL ================= */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.55);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    width: 100%;
+    max-width: 750px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 12px;
+    padding: 25px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.close {
+    border: none;
+    background: none;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+/* ================= CONTRACT ================= */
+
+.contract {
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+.contract h3 {
+    margin-top: 20px;
+    margin-bottom: 8px;
+}
+
+.contract li {
+    margin-left: 25px;
+}
+
+/* ================= EMAIL BOX ================= */
+
+.email-box {
+    background: #eff6ff;
+    border-left: 5px solid #2563eb;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 6px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width: 1000px) {
+
+    .sidebar {
+        width: 210px;
     }
 
-    .schedule-grid{
-        grid-template-columns:1fr;
+    .main {
+        margin-left: 210px;
     }
 
-    .topbar{
-        padding:15px;
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    .topbar h2{
-        font-size:17px;
+    .schedule-grid {
+        grid-template-columns: repeat(4, 1fr);
     }
 
-    .content{
-        padding:14px;
+}
+
+@media(max-width: 700px) {
+
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+
+    .main {
+        margin-left: 0;
+    }
+
+    .cards,
+    .form-grid,
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .schedule-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .topbar {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
     }
 }
 </style>
@@ -535,158 +495,160 @@ textarea{
 
 <body>
 
-<!-- =========================
-     SIDEBAR
-========================= -->
+<!-- ================= SIDEBAR ================= -->
 
-<aside class="sidebar" id="sidebar">
+<div class="sidebar">
 
     <div class="logo">
-        <div class="logo-box">TD</div>
-
-        <div class="logo-text">
-            <strong>TD-PH</strong>
-            <span>Teacher Management Portal</span>
-        </div>
+        <h2>TD-PH</h2>
+        <p>Teacher Management Portal</p>
     </div>
 
-    <nav class="nav">
-
-        <button class="active" onclick="showPage('dashboard',this)">
-            🏠 Dashboard
-        </button>
-
-        <button onclick="showPage('students',this)">
-            👨‍🎓 Students
-        </button>
-
-        <button onclick="showPage('evaluation',this)">
-            📝 Evaluation
-        </button>
-
-        <button onclick="showPage('records',this)">
-            📋 Class Records
-        </button>
-
-        <button onclick="showPage('contracts',this)">
-            📄 Contracts
-        </button>
-
-        <button onclick="showPage('payments',this)">
-            💳 Payments
-        </button>
-
-    </nav>
-
-    <button class="nav logout">
-        🚪 Logout
+    <button class="nav-btn active" onclick="showSection('dashboard', this)">
+        🏠 Dashboard
     </button>
 
-</aside>
+    <button class="nav-btn" onclick="showSection('students', this)">
+        👨‍🎓 Students
+    </button>
+
+    <button class="nav-btn" onclick="showSection('schedule', this)">
+        📅 Schedule
+    </button>
+
+    <button class="nav-btn" onclick="showSection('classes', this)">
+        📚 Class Records
+    </button>
+
+    <button class="nav-btn" onclick="showSection('assessments', this)">
+        📝 Assessments
+    </button>
+
+    <button class="nav-btn" onclick="showSection('evaluation', this)">
+        ⭐ Evaluation
+    </button>
+
+    <button class="nav-btn" onclick="showSection('contract', this)">
+        📄 Contract
+    </button>
+
+    <button class="nav-btn" onclick="showSection('payments', this)">
+        💳 Payments
+    </button>
+
+    <button class="nav-btn" onclick="showSection('emails', this)">
+        📧 Parent Emails
+    </button>
+
+</div>
 
 
-<!-- =========================
-     MAIN
-========================= -->
+<!-- ================= MAIN ================= -->
 
-<main class="main">
+<div class="main">
 
-    <header class="topbar">
+    <div class="topbar">
 
         <div>
-            <button class="mobile-menu" onclick="toggleSidebar()">☰</button>
-        </div>
-
-        <div>
-            <h2 id="pageTitle">Dashboard</h2>
+            <h1 id="pageTitle">Dashboard</h1>
         </div>
 
         <div class="teacher">
             Teacher Danyeal
         </div>
 
-    </header>
-
-
-    <div class="content">
-
-
-<!-- =========================
-     DASHBOARD
-========================= -->
-
-<section id="dashboard" class="page active">
-
-    <div class="welcome">
-        <h1>Welcome, Teacher Danyeal! 👋</h1>
-        <p>Manage your students, classes, evaluations, contracts and payments.</p>
     </div>
 
-    <div class="stats">
 
-        <div class="stat">
-            <small>Total Students</small>
-            <h2>3</h2>
+<!-- ================= DASHBOARD ================= -->
+
+<section id="dashboard" class="section active">
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Total Students</h3>
+            <div class="number">8</div>
         </div>
 
-        <div class="stat">
-            <small>Total Classes</small>
-            <h2>48</h2>
+        <div class="card">
+            <h3>Active Students</h3>
+            <div class="number">6</div>
         </div>
 
-        <div class="stat">
-            <small>Evaluations</small>
-            <h2>12</h2>
+        <div class="card">
+            <h3>Classes Completed</h3>
+            <div class="number">87</div>
         </div>
 
-        <div class="stat">
-            <small>Active Students</small>
-            <h2>3</h2>
+        <div class="card">
+            <h3>Pending Payments</h3>
+            <div class="number">2</div>
         </div>
 
     </div>
 
 
-    <div class="card">
+    <div class="panel">
 
-        <div class="card-header">
-            <h3>Upcoming Classes</h3>
+        <div class="panel-header">
+
+            <h2>Student Overview</h2>
+
+            <button class="btn btn-primary"
+                    onclick="openModal('studentModal')">
+                + Add Student
+            </button>
+
         </div>
 
-        <div class="table-wrap">
+        <div class="table-container">
 
             <table>
 
                 <thead>
                     <tr>
                         <th>Student</th>
-                        <th>Date</th>
-                        <th>Time</th>
+                        <th>ID</th>
+                        <th>Package</th>
+                        <th>Classes</th>
                         <th>Status</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
 
                 <tbody>
 
                     <tr>
-                        <td>Royhaan</td>
-                        <td>Monday</td>
-                        <td>7:00 PM</td>
-                        <td><span class="status present">Upcoming</span></td>
-                    </tr>
-
-                    <tr>
                         <td>Ryan</td>
-                        <td>Tuesday</td>
-                        <td>7:30 PM</td>
-                        <td><span class="status present">Upcoming</span></td>
+                        <td>TD-2026-001</td>
+                        <td>20 Classes</td>
+                        <td>12 / 20</td>
+                        <td>
+                            <span class="status paid">Active</span>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary"
+                                    onclick="showSection('studentProfile')">
+                                View
+                            </button>
+                        </td>
                     </tr>
 
                     <tr>
-                        <td>Khoi</td>
-                        <td>Friday</td>
-                        <td>7:00 PM</td>
-                        <td><span class="status present">Upcoming</span></td>
+                        <td>Royhaan</td>
+                        <td>TD-2026-002</td>
+                        <td>30 Classes</td>
+                        <td>5 / 30</td>
+                        <td>
+                            <span class="status paid">Active</span>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary"
+                                    onclick="showSection('studentProfile')">
+                                View
+                            </button>
+                        </td>
                     </tr>
 
                 </tbody>
@@ -697,124 +659,109 @@ textarea{
 
     </div>
 
+
+    <div class="panel">
+
+        <div class="panel-header">
+            <h2>Upcoming Classes</h2>
+        </div>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Lesson</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>Ryan</td>
+                    <td>Sept 30, 2026</td>
+                    <td>7:00 PM</td>
+                    <td>Lesson 13</td>
+                </tr>
+
+                <tr>
+                    <td>Royhaan</td>
+                    <td>Oct 1, 2026</td>
+                    <td>7:30 PM</td>
+                    <td>Lesson 6</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
 </section>
 
 
-<!-- =========================
-     STUDENTS
-========================= -->
+<!-- ================= STUDENTS ================= -->
 
-<section id="students" class="page">
+<section id="students" class="section">
 
-    <div class="card">
+    <div class="panel">
 
-        <div class="card-header">
+        <div class="panel-header">
 
-            <h3>Students</h3>
+            <h2>Student Information</h2>
 
-            <button class="btn btn-primary">
+            <button class="btn btn-primary"
+                    onclick="openModal('studentModal')">
                 + Add Student
             </button>
 
         </div>
 
-        <div class="toolbar">
-
-            <input
-                class="search"
-                placeholder="🔍 Search student..."
-            >
-
-        </div>
-
-
-        <div class="table-wrap">
+        <div class="table-container">
 
             <table>
 
                 <thead>
-
                     <tr>
                         <th>Student Name</th>
                         <th>Student ID</th>
+                        <th>Enrolled Date</th>
+                        <th>Parent Gmail</th>
                         <th>Package</th>
-                        <th>Classes</th>
-                        <th>Status</th>
+                        <th>Action</th>
                     </tr>
-
                 </thead>
 
                 <tbody>
 
                     <tr>
-
-                        <td
-                            class="student-name"
-                            onclick="openStudent()"
-                        >
-                            Royhaan
-                        </td>
-
-                        <td>TD-001</td>
-
-                        <td>P20</td>
-
-                        <td>12 / 20</td>
-
+                        <td>Ryan</td>
+                        <td>TD-2026-001</td>
+                        <td>Sept 1, 2026</td>
+                        <td>parent@example.com</td>
+                        <td>20 Classes</td>
                         <td>
-                            <span class="status present">
-                                Active
-                            </span>
+                            <button class="btn btn-primary"
+                                    onclick="showSection('studentProfile')">
+                                Open Profile
+                            </button>
                         </td>
-
                     </tr>
 
-
                     <tr>
-
-                        <td
-                            class="student-name"
-                            onclick="openStudent()"
-                        >
-                            Ryan
-                        </td>
-
-                        <td>TD-002</td>
-
-                        <td>P30</td>
-
-                        <td>18 / 30</td>
-
+                        <td>Royhaan</td>
+                        <td>TD-2026-002</td>
+                        <td>Sept 15, 2026</td>
+                        <td>parent2@example.com</td>
+                        <td>30 Classes</td>
                         <td>
-                            <span class="status present">
-                                Active
-                            </span>
+                            <button class="btn btn-primary"
+                                    onclick="showSection('studentProfile')">
+                                Open Profile
+                            </button>
                         </td>
-
-                    </tr>
-
-
-                    <tr>
-
-                        <td
-                            class="student-name"
-                            onclick="openStudent()"
-                        >
-                            Khoi
-                        </td>
-
-                        <td>TD-003</td>
-
-                        <td>P20</td>
-
-                        <td>8 / 20</td>
-
-                        <td>
-                            <span class="status present">
-                                Active
-                            </span>
-                        </td>
-
                     </tr>
 
                 </tbody>
@@ -828,194 +775,164 @@ textarea{
 </section>
 
 
-<!-- =========================
-     STUDENT PROFILE
-========================= -->
+<!-- ================= STUDENT PROFILE ================= -->
 
-<section id="studentProfile" class="page">
+<section id="studentProfile" class="section">
 
-    <button class="back-btn" onclick="showPage('students')">
-        ← Back to Students
-    </button>
+    <div class="panel">
 
-
-    <div class="profile-head">
-
-        <div class="profile-title">
-
-            <div class="avatar">
-                R
-            </div>
+        <div class="student-header">
 
             <div>
-
-                <h2>Royhaan</h2>
-
-                <p style="color:#718087;font-size:13px">
-                    Student ID: TD-001
-                </p>
-
+                <div class="student-name">Ryan</div>
+                <div class="student-id">
+                    Student ID: TD-2026-001
+                </div>
             </div>
 
-        </div>
-
-        <span class="status present">
-            Active Student
-        </span>
-
-    </div>
-
-
-    <div class="profile-tabs">
-
-        <button
-            class="active"
-            onclick="profileTab('info',this)"
-        >
-            Student Information
-        </button>
-
-        <button onclick="profileTab('schedule',this)">
-            Preferred Schedule
-        </button>
-
-        <button onclick="profileTab('assessment',this)">
-            Assessment
-        </button>
-
-        <button onclick="profileTab('classrecord',this)">
-            Class Record
-        </button>
-
-        <button onclick="profileTab('evaluationProfile',this)">
-            Evaluation
-        </button>
-
-        <button onclick="profileTab('contract',this)">
-            Contract
-        </button>
-
-        <button onclick="profileTab('payment',this)">
-            Payment Receipt
-        </button>
-
-    </div>
-
-
-<!-- STUDENT INFORMATION -->
-
-<div id="info" class="profile-section active">
-
-    <div class="card">
-
-        <div class="card-header">
-
-            <h3>Student Information</h3>
-
-            <button class="btn btn-secondary">
-                Edit Information
+            <button class="btn btn-success"
+                    onclick="alert('Student information saved successfully!')">
+                Save Student
             </button>
 
         </div>
 
+    </div>
 
-        <div class="form-grid">
 
-            <div class="form-group">
+    <!-- INFORMATION -->
 
-                <label>Enrolled Date</label>
+    <div class="panel">
 
-                <input
-                    type="date"
-                    value="2026-09-01"
-                >
+        <div class="panel-header">
+            <h2>Student Information</h2>
+        </div>
 
+        <div class="profile-grid">
+
+            <div class="info-box">
+                <small>Enrolled Date</small>
+                <strong>September 1, 2026</strong>
             </div>
 
-
-            <div class="form-group">
-
-                <label>Student Name</label>
-
-                <input value="Royhaan">
-
+            <div class="info-box">
+                <small>Student Name</small>
+                <strong>Ryan</strong>
             </div>
 
-
-            <div class="form-group">
-
-                <label>Student ID No.</label>
-
-                <input value="TD-001">
-
+            <div class="info-box">
+                <small>Student ID No.</small>
+                <strong>TD-2026-001</strong>
             </div>
 
-
-            <div class="form-group">
-
-                <label>Class Duration</label>
-
-                <input value="25 minutes">
-
+            <div class="info-box">
+                <small>Class Duration</small>
+                <strong>25 Minutes</strong>
             </div>
 
-
-            <div class="form-group">
-
-                <label>Parent Gmail</label>
-
-                <input value="parent@gmail.com">
-
+            <div class="info-box">
+                <small>Parent Gmail</small>
+                <strong>parent@example.com</strong>
             </div>
 
-
-            <div class="form-group">
-
-                <label>Facebook Link</label>
-
-                <input
-                    value="https://facebook.com/"
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>WeChat QR Code</label>
-
-                <input type="file">
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>ClassIn QR Code</label>
-
-                <input type="file">
-
+            <div class="info-box">
+                <small>Facebook</small>
+                <strong>facebook.com/parent</strong>
             </div>
 
         </div>
 
     </div>
 
-</div>
+
+    <!-- QR CODES -->
+
+    <div class="panel">
+
+        <div class="panel-header">
+            <h2>Communication QR Codes</h2>
+        </div>
+
+        <div class="qr-section">
+
+            <div>
+                <h4>WeChat QR Code</h4>
+                <div class="qr-box">
+                    QR CODE
+                </div>
+
+                <button class="btn btn-primary">
+                    Upload
+                </button>
+
+                <button class="btn btn-secondary">
+                    View
+                </button>
+            </div>
 
 
-<!-- SCHEDULE -->
+            <div>
+                <h4>ClassIn QR Code</h4>
+                <div class="qr-box">
+                    QR CODE
+                </div>
 
-<div id="schedule" class="profile-section">
+                <button class="btn btn-primary">
+                    Upload
+                </button>
 
-    <div class="card">
+                <button class="btn btn-secondary">
+                    View
+                </button>
+            </div>
 
-        <div class="card-header">
+        </div>
 
-            <h3>Preferred Class Schedule</h3>
+    </div>
 
-            <button class="btn btn-primary">
-                Edit Schedule
+
+    <!-- PACKAGE -->
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Purchased Classes</h3>
+            <div class="number">20</div>
+        </div>
+
+        <div class="card">
+            <h3>Completed</h3>
+            <div class="number">12</div>
+        </div>
+
+        <div class="card">
+            <h3>Remaining</h3>
+            <div class="number">8</div>
+        </div>
+
+        <div class="card">
+            <h3>Next Assessment</h3>
+            <div class="number">Lesson 20</div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= SCHEDULE ================= -->
+
+<section id="schedule" class="section">
+
+    <div class="panel">
+
+        <div class="panel-header">
+
+            <h2>Preferred Class Schedule</h2>
+
+            <button class="btn btn-primary"
+                    onclick="alert('Schedule saved!')">
+                Save Schedule
             </button>
 
         </div>
@@ -1030,7 +947,7 @@ textarea{
 
             <div class="day">
                 <strong>Tuesday</strong>
-                <span>—</span>
+                <span>Available</span>
             </div>
 
             <div class="day">
@@ -1040,7 +957,7 @@ textarea{
 
             <div class="day">
                 <strong>Thursday</strong>
-                <span>—</span>
+                <span>Available</span>
             </div>
 
             <div class="day">
@@ -1050,7 +967,7 @@ textarea{
 
             <div class="day">
                 <strong>Saturday</strong>
-                <span>—</span>
+                <span>Available</span>
             </div>
 
             <div class="day">
@@ -1062,323 +979,538 @@ textarea{
 
     </div>
 
-</div>
+</section>
 
 
-<!-- ASSESSMENT -->
+<!-- ================= CLASS RECORD ================= -->
 
-<div id="assessment" class="profile-section">
+<section id="classes" class="section">
 
-    <div class="card">
+    <div class="panel">
 
-        <div class="card-header">
+        <div class="panel-header">
 
-            <div>
-                <h3>Student Assessment & Examination</h3>
+            <h2>Class Record</h2>
 
-                <p style="font-size:12px;color:#74838a;margin-top:5px">
-                    Assessment is conducted every 10 lessons.
-                </p>
-            </div>
+            <button class="btn btn-primary"
+                    onclick="openModal('classModal')">
+                + Add Class
+            </button>
 
-            <button class="btn btn-primary">
+        </div>
+
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Class No.</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Day</th>
+                    <th>Attendance</th>
+                    <th>Late</th>
+                    <th>Lesson</th>
+                    <th>Evaluation</th>
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                <tr>
+                    <td>12</td>
+                    <td>Sept 29</td>
+                    <td>7:00 PM</td>
+                    <td>Tuesday</td>
+                    <td>
+                        <span class="status present">
+                            Present
+                        </span>
+                    </td>
+                    <td>No</td>
+                    <td>
+                        <a href="#" onclick="alert('Opening lesson...')">
+                            Lesson 12
+                        </a>
+                    </td>
+                    <td>
+                        <button class="btn btn-warning"
+                                onclick="showSection('evaluation')">
+                            Evaluate
+                        </button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>11</td>
+                    <td>Sept 28</td>
+                    <td>7:00 PM</td>
+                    <td>Monday</td>
+                    <td>
+                        <span class="status present">
+                            Present
+                        </span>
+                    </td>
+                    <td>5 min</td>
+                    <td>
+                        <a href="#">Lesson 11</a>
+                    </td>
+                    <td>
+                        <button class="btn btn-warning"
+                                onclick="showSection('evaluation')">
+                            View
+                        </button>
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- ================= ASSESSMENTS ================= -->
+
+<section id="assessments" class="section">
+
+    <div class="panel">
+
+        <div class="panel-header">
+
+            <h2>Student Assessment & Examination Scores</h2>
+
+            <button class="btn btn-primary"
+                    onclick="openModal('assessmentModal')">
                 + Add Assessment
             </button>
 
         </div>
 
+        <div class="email-box">
 
-        <div class="table-wrap">
+            <strong>Assessment Schedule</strong>
 
-            <table>
-
-                <thead>
-
-                    <tr>
-                        <th>Assessment</th>
-                        <th>Date</th>
-                        <th>Score</th>
-                        <th>Rating</th>
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    <tr>
-                        <td>1st Assessment</td>
-                        <td>Sept 10, 2026</td>
-                        <td>92%</td>
-                        <td class="rating">Excellent</td>
-                    </tr>
-
-                    <tr>
-                        <td>2nd Assessment</td>
-                        <td>—</td>
-                        <td>—</td>
-                        <td>—</td>
-                    </tr>
-
-                </tbody>
-
-            </table>
+            <p>
+                An assessment examination is conducted every
+                10 lessons to evaluate the student's progress
+                and mastery of the lessons covered.
+            </p>
 
         </div>
 
+        <br>
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Assessment</th>
+                    <th>Lesson</th>
+                    <th>Date</th>
+                    <th>Score</th>
+                    <th>Rating</th>
+                    <th>Action</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>1st Assessment</td>
+                    <td>Lesson 10</td>
+                    <td>Sept 18</td>
+                    <td>92 / 100</td>
+                    <td>
+                        <span class="status paid">
+                            Excellent
+                        </span>
+                    </td>
+                    <td>
+                        <button class="btn btn-success"
+                                onclick="sendAssessmentEmail()">
+                            📧 Send Result
+                        </button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>2nd Assessment</td>
+                    <td>Lesson 20</td>
+                    <td>Pending</td>
+                    <td>—</td>
+                    <td>—</td>
+                    <td>Not yet</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
     </div>
 
-</div>
+</section>
 
 
-<!-- CLASS RECORD -->
+<!-- ================= EVALUATION ================= -->
 
-<div id="classrecord" class="profile-section">
+<section id="evaluation" class="section">
 
-    <div class="card">
+    <div class="panel">
 
-        <div class="card-header">
+        <div class="panel-header">
 
-            <h3>Class Record</h3>
+            <h2>Class Evaluation</h2>
 
-            <button class="btn btn-primary">
-                + Add Class Record
+            <button class="btn btn-success"
+                    onclick="sendEvaluationEmail()">
+                📧 Save & Send to Parent
             </button>
 
         </div>
 
 
-        <div class="table-wrap">
+        <div class="form-grid">
 
-            <table>
+            <div class="form-group">
+                <label>Student</label>
+                <input value="Ryan">
+            </div>
 
-                <thead>
+            <div class="form-group">
+                <label>Class No.</label>
+                <input value="12">
+            </div>
 
-                    <tr>
-                        <th>Class No.</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Day</th>
-                        <th>Attendance</th>
-                        <th>Late</th>
-                        <th>Lesson</th>
-                    </tr>
+            <div class="form-group">
+                <label>Date</label>
+                <input type="date" value="2026-09-29">
+            </div>
 
-                </thead>
+            <div class="form-group">
+                <label>Lesson</label>
+                <input value="Lesson 12">
+            </div>
 
-                <tbody>
+            <div class="form-group full">
 
-                    <tr>
+                <label>Strengths</label>
 
-                        <td>1</td>
-                        <td>Sept 1</td>
-                        <td>7:00 PM</td>
-                        <td>Monday</td>
+                <textarea>
+Ryan participated actively and showed good understanding of the lesson.
+                </textarea>
 
-                        <td>
-                            <span class="status present">
-                                Present
-                            </span>
-                        </td>
-
-                        <td>No</td>
-
-                        <td>
-                            <a href="#" style="color:#087b76">
-                                View Lesson
-                            </a>
-                        </td>
-
-                    </tr>
+            </div>
 
 
-                    <tr>
+            <div class="form-group full">
 
-                        <td>2</td>
-                        <td>Sept 3</td>
-                        <td>7:00 PM</td>
-                        <td>Wednesday</td>
+                <label>Areas for Improvement</label>
 
-                        <td>
-                            <span class="status late">
-                                Present
-                            </span>
-                        </td>
+                <textarea>
+Continue practicing pronunciation and sentence formation.
+                </textarea>
 
-                        <td>10 mins</td>
-
-                        <td>
-                            <a href="#" style="color:#087b76">
-                                View Lesson
-                            </a>
-                        </td>
-
-                    </tr>
+            </div>
 
 
-                    <tr>
+            <div class="form-group full">
 
-                        <td>3</td>
-                        <td>Sept 5</td>
-                        <td>7:00 PM</td>
-                        <td>Friday</td>
+                <label>Vocabulary Learned</label>
 
-                        <td>
-                            <span class="status absent">
-                                Absent
-                            </span>
-                        </td>
+                <textarea>
+invasion, occupation, war, history
+                </textarea>
 
-                        <td>—</td>
+            </div>
 
-                        <td>—</td>
 
-                    </tr>
+            <div class="form-group full">
 
-                </tbody>
+                <label>Teacher's Remarks</label>
 
-            </table>
+                <textarea>
+Good participation today. Continue practicing English at home.
+                </textarea>
+
+            </div>
 
         </div>
 
     </div>
 
-</div>
 
+    <div class="panel">
 
-<!-- EVALUATION -->
+        <div class="panel-header">
 
-<div id="evaluationProfile" class="profile-section">
-
-    <div class="card">
-
-        <div class="card-header">
-
-            <h3>Student Evaluation</h3>
-
-            <button class="btn btn-primary">
-                + New Evaluation
-            </button>
+            <h2>Email Preview</h2>
 
         </div>
 
+        <div class="email-box">
 
-        <div class="table-wrap">
+            <strong>To:</strong>
+            parent@example.com
 
-            <table>
+            <br><br>
 
-                <thead>
+            <strong>Subject:</strong>
+            Ryan - Class 12 Evaluation
 
-                    <tr>
-                        <th>Class</th>
-                        <th>Date</th>
-                        <th>Lesson</th>
-                        <th>Score</th>
-                        <th>Rating</th>
-                    </tr>
+            <hr><br>
 
-                </thead>
+            Dear Parent,
 
-                <tbody>
+            <br><br>
 
-                    <tr>
-                        <td>Lesson 10</td>
-                        <td>Sept 15</td>
-                        <td>Daily Activities</td>
-                        <td>92%</td>
-                        <td class="rating">Excellent</td>
-                    </tr>
+            Here is Ryan's class evaluation for today.
 
-                </tbody>
+            <br><br>
 
-            </table>
+            <strong>Strengths:</strong><br>
+            Good participation and understanding.
+
+            <br><br>
+
+            <strong>Areas for Improvement:</strong><br>
+            Pronunciation and sentence formation.
+
+            <br><br>
+
+            <strong>Vocabulary Learned:</strong><br>
+            invasion, occupation, war, history
+
+            <br><br>
+
+            Thank you for supporting Ryan's English learning journey.
+
+            <br><br>
+
+            Teacher Danyeal
 
         </div>
 
     </div>
 
-</div>
+</section>
 
 
-<!-- CONTRACT -->
+<!-- ================= CONTRACT ================= -->
 
-<div id="contract" class="profile-section">
+<section id="contract" class="section">
 
-    <div class="card">
+    <div class="panel">
 
-        <div class="card-header">
+        <div class="panel-header">
 
-            <h3>Student Contract</h3>
+            <h2>Student Contract</h2>
 
-            <button class="btn btn-primary">
-                View Contract
-            </button>
+            <div>
+
+                <button class="btn btn-secondary"
+                        onclick="window.print()">
+                    🖨 Print
+                </button>
+
+                <button class="btn btn-success"
+                        onclick="sendContractEmail()">
+                    📧 Send Contract
+                </button>
+
+            </div>
 
         </div>
 
 
-        <div style="line-height:1.7;font-size:13px">
+        <div class="contract">
 
-            <h4>A. STUDENT INFORMATION</h4>
-
-            <br>
-
-            <h4>B. SELECTED PACKAGE</h4>
-
-            <br>
-
-            <h4>C. CLASS ARRANGEMENT</h4>
+            <h3>A. STUDENT INFORMATION</h3>
 
             <p>
-                ✓ Each class is 25 minutes long.
+                Student Name: Ryan<br>
+                Student ID: TD-2026-001<br>
+                Parent Name: Hà Thị Cúc
             </p>
+
+
+            <h3>B. SELECTED PACKAGE</h3>
 
             <p>
-                ✓ Classes are conducted as private 1-on-1 sessions.
+                Package: 20 Classes<br>
+                Class Duration: 25 minutes
             </p>
+
+
+            <h3>C. CLASS ARRANGEMENT</h3>
+
+            <ul>
+
+                <li>Each class is 25 minutes long.</li>
+
+                <li>
+                    Classes are conducted as private 1-on-1 sessions.
+                </li>
+
+                <li>
+                    The class schedule will be arranged by mutual
+                    agreement between the teacher and parent/student.
+                </li>
+
+                <li>
+                    There is no fixed completion period for the
+                    purchased classes unless otherwise agreed upon.
+                </li>
+
+                <li>
+                    The student is expected to attend the agreed
+                    class schedule on time.
+                </li>
+
+            </ul>
+
+
+            <h3>D. LESSON MATERIALS</h3>
+
+            <ul>
+
+                <li>
+                    Learning materials will be prepared by the Teacher
+                    based on the student's learning needs, level,
+                    and/or the parent's requested topic.
+                </li>
+
+                <li>
+                    Parents may communicate their preferred learning
+                    goals or lesson topics before the class.
+                </li>
+
+                <li>
+                    Materials may include PPT lessons, worksheets,
+                    reading activities, vocabulary exercises,
+                    phonics, grammar, speaking practice, stories,
+                    and other appropriate activities.
+                </li>
+
+            </ul>
+
+
+            <h3>E. PACKAGE & PAYMENT POLICY</h3>
+
+            <ul>
+
+                <li>
+                    The purchased package is intended for one student
+                    only and cannot be transferred to another student
+                    without the teacher's approval.
+                </li>
+
+                <li>
+                    Once payment has been confirmed and the package
+                    has been activated, the classes are considered purchased.
+                </li>
+
+                <li>
+                    Parents are encouraged to communicate any concerns
+                    regarding the package or lessons directly with the teacher.
+                </li>
+
+            </ul>
+
+
+            <h3>F. STUDENT LEARNING EXPECTATIONS</h3>
+
+            <p>The student is encouraged to:</p>
+
+            <ul>
+
+                <li>Attend classes regularly.</li>
+                <li>Participate actively during lessons.</li>
+                <li>Complete assigned activities or practice when applicable.</li>
+                <li>Ask questions whenever they do not understand the lesson.</li>
+                <li>Practice English outside class when possible.</li>
+
+            </ul>
+
+
+            <h3>G. CLASS CANCELLATION & RESCHEDULING</h3>
+
+            <ul>
+
+                <li>
+                    If the student needs to cancel or reschedule a class,
+                    the parent/student should inform the teacher before
+                    the scheduled class whenever possible.
+                </li>
+
+                <li>
+                    Rescheduling is subject to the teacher's available schedule.
+                </li>
+
+                <li>
+                    If the student does not attend the class without prior
+                    notice, the class may be considered used.
+                </li>
+
+                <li>
+                    If the teacher needs to cancel a class due to an emergency
+                    or technical problem, the class will be rescheduled and
+                    will not be deducted from the student's package.
+                </li>
+
+                <li>
+                    Once the parent/student and teacher have agreed on a
+                    regular class schedule, the selected day and time will
+                    remain the student's regular schedule for the following
+                    weeks until all purchased class credits have been completed,
+                    unless a schedule change is requested and agreed upon
+                    by both parties.
+                </li>
+
+            </ul>
+
+
+            <h3>H. ASSESSMENT, PROGRESS REPORT & CERTIFICATE</h3>
+
+            <ul>
+
+                <li>
+                    Every 10th lesson will serve as an assessment,
+                    test, or review to evaluate the student's understanding
+                    and progress.
+                </li>
+
+                <li>
+                    After the student completes every 10 lessons,
+                    the teacher will provide an Evaluation and Feedback
+                    Report summarizing the student's progress, strengths,
+                    areas for improvement, and overall performance.
+                </li>
+
+                <li>
+                    Upon successful completion of the enrolled lesson
+                    package or program, the student will receive a
+                    Certificate of Completion from the teacher.
+                </li>
+
+            </ul>
+
+
+            <h3>I. AGREEMENT</h3>
 
             <p>
-                ✓ The class schedule will be arranged by mutual agreement
-                between the teacher and parent/student.
+                By signing this contract, the parent/student confirms
+                that they have read, understood, and agreed to the terms
+                and conditions of the Teacher Danyeal Private English Class.
             </p>
 
-            <p>
-                ✓ There is no fixed completion period for the purchased
-                classes unless otherwise agreed upon.
-            </p>
-
-            <p>
-                ✓ The student is expected to attend the agreed class
-                schedule on time.
-            </p>
-
-            <br>
-
-            <h4>D. LESSON MATERIALS</h4>
-
-            <p>
-                ✓ Learning materials will be prepared by the Teacher based
-                on the student's learning needs, level, and/or the parent's
-                requested topic.
-            </p>
-
-            <br>
-
-            <h4>H. ASSESSMENT, PROGRESS REPORT & CERTIFICATE</h4>
-
-            <p>
-                ✓ Every 10th lesson will serve as an assessment, test,
-                or review to evaluate the student's understanding and progress.
-            </p>
-
-            <br>
-
-            <h4>I. AGREEMENT</h4>
-
-            <p>
-                By signing this contract, the parent/student confirms that
-                they have read, understood, and agreed to the terms and
-                conditions of the Teacher Danyeal Private English Class.
-            </p>
 
             <br>
 
@@ -1388,7 +1520,7 @@ textarea{
 
             <p>
                 <strong>Parent Signature:</strong>
-                [ Upload / View ]
+                __________________________
             </p>
 
             <br>
@@ -1399,140 +1531,669 @@ textarea{
 
             <p>
                 <strong>Teacher Signature:</strong>
-                [ Upload / View ]
+                __________________________
             </p>
 
         </div>
 
     </div>
 
-</div>
+</section>
 
 
-<!-- PAYMENT -->
+<!-- ================= PAYMENTS ================= -->
 
-<div id="payment" class="profile-section">
+<section id="payments" class="section">
 
-    <div class="card">
+    <div class="panel">
 
-        <div class="card-header">
+        <div class="panel-header">
 
-            <h3>Payment Receipts</h3>
+            <h2>Payment Receipt</h2>
 
-            <button class="btn btn-primary">
-                + Add Payment
+            <button class="btn btn-primary"
+                    onclick="openModal('paymentModal')">
+                + Add Payment / Renew
             </button>
 
         </div>
 
 
-        <div class="table-wrap">
+        <table>
 
-            <table>
+            <thead>
 
-                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Package</th>
+                    <th>Classes</th>
+                    <th>Total</th>
+                    <th>Paid</th>
+                    <th>Balance</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
 
-                    <tr>
-                        <th>Date</th>
-                        <th>Package</th>
-                        <th>Classes</th>
-                        <th>Amount Paid</th>
-                        <th>Status</th>
-                    </tr>
+            </thead>
 
-                </thead>
+            <tbody>
 
-                <tbody>
+                <tr>
 
-                    <tr>
+                    <td>Sept 1, 2026</td>
 
-                        <td>Sept 1, 2026</td>
-                        <td>P20</td>
-                        <td>20</td>
-                        <td>₱1,300</td>
+                    <td>20 Classes</td>
 
-                        <td>
-                            <span class="status present">
-                                Paid
-                            </span>
-                        </td>
+                    <td>20</td>
 
-                    </tr>
+                    <td>₱1,300</td>
 
-                </tbody>
+                    <td>₱1,300</td>
 
-            </table>
+                    <td>₱0</td>
+
+                    <td>
+                        <span class="status paid">
+                            PAID
+                        </span>
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-success"
+                                onclick="sendReceiptEmail()">
+                            📧 Send Receipt
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <div class="panel">
+
+        <h2>Payment Receipt Preview</h2>
+
+        <br>
+
+        <div class="email-box">
+
+            <strong>PAYMENT RECEIPT</strong>
+
+            <br><br>
+
+            This is to acknowledge that payment has been received from:
+
+            <br><br>
+
+            <strong>Student Name:</strong> Ryan<br>
+
+            <strong>Student ID:</strong> TD-2026-001<br>
+
+            <strong>Country:</strong> Vietnam
+
+            <br><br>
+
+            <strong>Package / Service:</strong>
+            English Private Classes
+
+            <br>
+
+            <strong>Number of Classes:</strong>
+            20
+
+            <br>
+
+            <strong>Total Package Amount:</strong>
+            ₱1,300
+
+            <br>
+
+            <strong>Amount Paid:</strong>
+            ₱1,300
+
+            <br>
+
+            <strong>Remaining Balance:</strong>
+            ₱0
+
+            <br>
+
+            <strong>Payment Status:</strong>
+            PAID
+
+            <br>
+
+            <strong>Mode of Payment:</strong>
+            GCash
+
+            <br>
+
+            <strong>Transaction Reference No.:</strong>
+            GC123456789
+
+            <br>
+
+            <strong>Date of Payment:</strong>
+            September 1, 2026
+
+            <br><br>
+
+            <strong>PAYMENT DESCRIPTION</strong>
+
+            <br><br>
+
+            Payment received for English Private Classes /
+            Learning Package.
+
+            <br><br>
+
+            Received by:<br>
+
+            <strong>Teacher Danyeal</strong>
 
         </div>
 
     </div>
 
+</section>
 
-    <div class="card">
 
-        <h3 style="margin-bottom:18px">
-            Payment Receipt
-        </h3>
+<!-- ================= EMAILS ================= -->
+
+<section id="emails" class="section">
+
+    <div class="panel">
+
+        <div class="panel-header">
+
+            <h2>Parent Email Center</h2>
+
+        </div>
+
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Email Type</th>
+                    <th>Student</th>
+                    <th>Parent Gmail</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                <tr>
+
+                    <td>Class Evaluation</td>
+
+                    <td>Ryan</td>
+
+                    <td>parent@example.com</td>
+
+                    <td>
+                        <span class="status pending">
+                            Ready
+                        </span>
+                    </td>
+
+                    <td>
+                        <button class="btn btn-success"
+                                onclick="sendEvaluationEmail()">
+                            Send
+                        </button>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>Assessment Result</td>
+
+                    <td>Ryan</td>
+
+                    <td>parent@example.com</td>
+
+                    <td>
+                        <span class="status pending">
+                            Ready
+                        </span>
+                    </td>
+
+                    <td>
+                        <button class="btn btn-success"
+                                onclick="sendAssessmentEmail()">
+                            Send
+                        </button>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>Payment Receipt</td>
+
+                    <td>Ryan</td>
+
+                    <td>parent@example.com</td>
+
+                    <td>
+                        <span class="status pending">
+                            Ready
+                        </span>
+                    </td>
+
+                    <td>
+                        <button class="btn btn-success"
+                                onclick="sendReceiptEmail()">
+                            Send
+                        </button>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>Student Contract</td>
+
+                    <td>Ryan</td>
+
+                    <td>parent@example.com</td>
+
+                    <td>
+                        <span class="status pending">
+                            Ready
+                        </span>
+                    </td>
+
+                    <td>
+                        <button class="btn btn-success"
+                                onclick="sendContractEmail()">
+                            Send
+                        </button>
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <div class="panel">
+
+        <h2>Automatic Email System</h2>
+
+        <br>
+
+        <label>
+            <input type="checkbox" checked>
+            Automatically send class evaluation after saving
+        </label>
+
+        <br><br>
+
+        <label>
+            <input type="checkbox" checked>
+            Automatically send assessment result
+        </label>
+
+        <br><br>
+
+        <label>
+            <input type="checkbox" checked>
+            Automatically send payment receipt
+        </label>
+
+        <br><br>
+
+        <label>
+            <input type="checkbox">
+            Automatically send contract after signing
+        </label>
+
+    </div>
+
+</section>
+
+</div>
+
+
+<!-- ================= ADD STUDENT MODAL ================= -->
+
+<div id="studentModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>Add Student</h2>
+
+            <button class="close"
+                    onclick="closeModal('studentModal')">
+                ×
+            </button>
+
+        </div>
+
 
         <div class="form-grid">
 
             <div class="form-group">
+                <label>Enrolled Date</label>
+                <input type="date">
+            </div>
+
+            <div class="form-group">
                 <label>Student Name</label>
-                <input value="Royhaan">
+                <input type="text"
+                       placeholder="Student name">
             </div>
 
             <div class="form-group">
-                <label>Student ID</label>
-                <input value="TD-001">
+                <label>Student ID No.</label>
+                <input type="text"
+                       value="TD-2026-003">
             </div>
 
             <div class="form-group">
+                <label>Class Duration</label>
+
+                <select>
+                    <option>25 Minutes</option>
+                    <option>30 Minutes</option>
+                    <option>45 Minutes</option>
+                    <option>60 Minutes</option>
+                </select>
+
+            </div>
+
+            <div class="form-group">
+                <label>Parent Gmail</label>
+                <input type="email"
+                       placeholder="parent@gmail.com">
+            </div>
+
+            <div class="form-group">
+                <label>Facebook Link</label>
+                <input type="url"
+                       placeholder="Facebook URL">
+            </div>
+
+            <div class="form-group full">
+
                 <label>Country</label>
-                <input value="Thailand">
+
+                <select>
+                    <option>Vietnam</option>
+                    <option>China</option>
+                    <option>Thailand</option>
+                    <option>Philippines</option>
+                    <option>Other</option>
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <br>
+
+        <button class="btn btn-success"
+                onclick="saveStudent()">
+            Save Student
+        </button>
+
+        <button class="btn btn-secondary"
+                onclick="closeModal('studentModal')">
+            Cancel
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================= CLASS MODAL ================= -->
+
+<div id="classModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>Add Class Record</h2>
+
+            <button class="close"
+                    onclick="closeModal('classModal')">
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label>Class No.</label>
+                <input type="number" value="13">
             </div>
 
             <div class="form-group">
-                <label>Package / Service</label>
-                <input value="Private English Classes">
+                <label>Date</label>
+                <input type="date">
+            </div>
+
+            <div class="form-group">
+                <label>Time</label>
+                <input type="time">
+            </div>
+
+            <div class="form-group">
+                <label>Attendance</label>
+
+                <select>
+                    <option>Present</option>
+                    <option>Absent</option>
+                </select>
+
+            </div>
+
+            <div class="form-group">
+                <label>Late</label>
+                <input placeholder="No / 5 min / 10 min">
+            </div>
+
+            <div class="form-group">
+                <label>Lesson URL</label>
+                <input type="url"
+                       placeholder="Paste lesson link">
+            </div>
+
+        </div>
+
+        <br>
+
+        <button class="btn btn-success"
+                onclick="saveClass()">
+            Save Class
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================= ASSESSMENT MODAL ================= -->
+
+<div id="assessmentModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>Add Assessment</h2>
+
+            <button class="close"
+                    onclick="closeModal('assessmentModal')">
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label>Assessment</label>
+
+                <select>
+                    <option>1st Assessment</option>
+                    <option>2nd Assessment</option>
+                    <option>3rd Assessment</option>
+                    <option>4th Assessment</option>
+                </select>
+
+            </div>
+
+            <div class="form-group">
+                <label>Lesson</label>
+                <input value="Lesson 20">
+            </div>
+
+            <div class="form-group">
+                <label>Score</label>
+                <input placeholder="e.g. 92 / 100">
+            </div>
+
+            <div class="form-group">
+                <label>Rating</label>
+
+                <select>
+                    <option>Excellent</option>
+                    <option>Very Good</option>
+                    <option>Good</option>
+                    <option>Needs Improvement</option>
+                </select>
+
+            </div>
+
+            <div class="form-group full">
+
+                <label>Remarks</label>
+
+                <textarea placeholder="Assessment remarks"></textarea>
+
+            </div>
+
+        </div>
+
+        <br>
+
+        <button class="btn btn-success"
+                onclick="saveAssessment()">
+            Save Assessment
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================= PAYMENT MODAL ================= -->
+
+<div id="paymentModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>Add Payment / Renew Package</h2>
+
+            <button class="close"
+                    onclick="closeModal('paymentModal')">
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label>Package</label>
+
+                <select>
+                    <option>10 Classes</option>
+                    <option>20 Classes</option>
+                    <option>30 Classes</option>
+                    <option>40 Classes</option>
+                </select>
+
             </div>
 
             <div class="form-group">
                 <label>Number of Classes</label>
-                <input value="20">
+                <input type="number">
             </div>
 
             <div class="form-group">
                 <label>Total Package Amount</label>
-                <input value="₱1,300">
+                <input type="number"
+                       placeholder="₱">
             </div>
 
             <div class="form-group">
                 <label>Amount Paid</label>
-                <input value="₱1,300">
-            </div>
-
-            <div class="form-group">
-                <label>Remaining Balance</label>
-                <input value="₱0">
+                <input type="number"
+                       placeholder="₱">
             </div>
 
             <div class="form-group">
                 <label>Payment Status</label>
+
                 <select>
-                    <option>Paid</option>
-                    <option>Partial</option>
-                    <option>Pending</option>
+                    <option>PAID</option>
+                    <option>PARTIAL</option>
+                    <option>PENDING</option>
                 </select>
+
             </div>
 
             <div class="form-group">
                 <label>Mode of Payment</label>
-                <input value="Bank Transfer">
+
+                <select>
+                    <option>GCash</option>
+                    <option>Bank Transfer</option>
+                    <option>InstaPay</option>
+                    <option>WeChat Pay</option>
+                    <option>Cash</option>
+                    <option>Other</option>
+                </select>
+
             </div>
 
             <div class="form-group">
                 <label>Transaction Reference No.</label>
-                <input value="TRX-20260901-001">
+                <input>
             </div>
 
             <div class="form-group">
@@ -1540,216 +2201,201 @@ textarea{
                 <input type="date">
             </div>
 
-            <div class="form-group full">
-                <label>Payment Description</label>
-
-                <textarea>Payment received for English Private Classes / Learning Package.</textarea>
-
-            </div>
-
         </div>
 
         <br>
 
-        <p style="font-size:13px;line-height:1.8">
-            <strong>Received by:</strong><br>
-            Teacher Danyeal<br>
-            Signature: [ Upload / View ]
-        </p>
-
-        <br>
-
-        <p style="font-size:13px;color:#607179">
-            Thank you for your payment!<br>
-            Please keep this receipt for your records.
-        </p>
+        <button class="btn btn-success"
+                onclick="savePayment()">
+            Save Payment
+        </button>
 
     </div>
 
 </div>
 
-</section>
-
-
-<!-- =========================
-     GLOBAL PAGES
-========================= -->
-
-<section id="evaluation" class="page">
-
-    <div class="card">
-
-        <div class="card-header">
-
-            <h3>Evaluation</h3>
-
-            <button class="btn btn-primary">
-                + New Evaluation
-            </button>
-
-        </div>
-
-        <p style="color:#718087;font-size:13px">
-            This section will contain the existing Teacher Danyeal
-            evaluation system and EmailJS class memo feature.
-        </p>
-
-    </div>
-
-</section>
-
-
-<section id="records" class="page">
-
-    <div class="card">
-
-        <div class="card-header">
-            <h3>Class Records</h3>
-        </div>
-
-        <p style="color:#718087;font-size:13px">
-            All student class records will be shown here.
-        </p>
-
-    </div>
-
-</section>
-
-
-<section id="contracts" class="page">
-
-    <div class="card">
-
-        <div class="card-header">
-            <h3>Contracts</h3>
-        </div>
-
-        <p style="color:#718087;font-size:13px">
-            Student contracts will be managed here.
-        </p>
-
-    </div>
-
-</section>
-
-
-<section id="payments" class="page">
-
-    <div class="card">
-
-        <div class="card-header">
-            <h3>Payments</h3>
-        </div>
-
-        <p style="color:#718087;font-size:13px">
-            Payment receipts and renewal records will be managed here.
-        </p>
-
-    </div>
-
-</section>
-
-
-    </div>
-
-</main>
-
 
 <script>
 
-/* =========================
-   PAGE NAVIGATION
-========================= */
+/* ================= NAVIGATION ================= */
 
-function showPage(pageId,button){
+function showSection(sectionId, button = null) {
 
-    document.querySelectorAll('.page')
-        .forEach(page=>{
-            page.classList.remove('active');
-        });
+    document.querySelectorAll(".section").forEach(section => {
+        section.classList.remove("active");
+    });
 
-    const page=document.getElementById(pageId);
+    const section = document.getElementById(sectionId);
 
-    if(page){
-        page.classList.add('active');
+    if(section) {
+        section.classList.add("active");
     }
 
-    document.querySelectorAll('.nav button')
-        .forEach(btn=>{
-            btn.classList.remove('active');
-        });
+    document.querySelectorAll(".nav-btn").forEach(btn => {
+        btn.classList.remove("active");
+    });
 
-    if(button){
-        button.classList.add('active');
+    if(button) {
+        button.classList.add("active");
     }
 
-    const titles={
-        dashboard:'Dashboard',
-        students:'Students',
-        evaluation:'Evaluation',
-        records:'Class Records',
-        contracts:'Contracts',
-        payments:'Payments'
+    const titles = {
+        dashboard: "Dashboard",
+        students: "Students",
+        studentProfile: "Student Profile",
+        schedule: "Schedule",
+        classes: "Class Records",
+        assessments: "Assessments",
+        evaluation: "Class Evaluation",
+        contract: "Student Contract",
+        payments: "Payments",
+        emails: "Parent Email Center"
     };
 
-    document.getElementById('pageTitle').textContent =
-        titles[pageId] || 'Student Profile';
+    document.getElementById("pageTitle").textContent =
+        titles[sectionId] || "TD-PH Portal";
 
-    document.getElementById('sidebar')
-        .classList.remove('open');
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 }
 
 
-/* =========================
-   STUDENT PROFILE
-========================= */
+/* ================= MODAL ================= */
 
-function openStudent(){
+function openModal(id) {
 
-    showPage('studentProfile');
+    document.getElementById(id)
+        .classList.add("show");
 
-    document.getElementById('pageTitle').textContent =
-        'Student Profile';
+}
+
+function closeModal(id) {
+
+    document.getElementById(id)
+        .classList.remove("show");
 
 }
 
 
-/* =========================
-   PROFILE TABS
-========================= */
+/* ================= STUDENT ================= */
 
-function profileTab(tabId,button){
+function saveStudent() {
 
-    document.querySelectorAll('.profile-section')
-        .forEach(section=>{
-            section.classList.remove('active');
-        });
+    alert(
+        "Student saved successfully!\n\n" +
+        "Next step: Connect this form to Supabase."
+    );
 
-    const section=document.getElementById(tabId);
+    closeModal("studentModal");
 
-    if(section){
-        section.classList.add('active');
+}
+
+
+/* ================= CLASS ================= */
+
+function saveClass() {
+
+    alert(
+        "Class record saved successfully!\n\n" +
+        "The class count can later be automatically updated."
+    );
+
+    closeModal("classModal");
+
+}
+
+
+/* ================= ASSESSMENT ================= */
+
+function saveAssessment() {
+
+    alert(
+        "Assessment saved successfully!\n\n" +
+        "Parent email is ready to be sent."
+    );
+
+    closeModal("assessmentModal");
+
+}
+
+
+/* ================= PAYMENT ================= */
+
+function savePayment() {
+
+    alert(
+        "Payment saved successfully!\n\n" +
+        "Payment receipt is ready."
+    );
+
+    closeModal("paymentModal");
+
+}
+
+
+/* ================= EMAIL FUNCTIONS ================= */
+
+function sendEvaluationEmail() {
+
+    alert(
+        "DEMO EMAIL\n\n" +
+        "Evaluation email prepared for:\n" +
+        "parent@example.com\n\n" +
+        "In the live version, this button will send the email automatically."
+    );
+
+}
+
+
+function sendAssessmentEmail() {
+
+    alert(
+        "DEMO EMAIL\n\n" +
+        "Assessment result prepared for:\n" +
+        "parent@example.com\n\n" +
+        "In the live version, this will be sent automatically."
+    );
+
+}
+
+
+function sendReceiptEmail() {
+
+    alert(
+        "DEMO EMAIL\n\n" +
+        "Payment receipt prepared for:\n" +
+        "parent@example.com\n\n" +
+        "In the live version, the receipt will be emailed automatically."
+    );
+
+}
+
+
+function sendContractEmail() {
+
+    alert(
+        "DEMO EMAIL\n\n" +
+        "Student contract prepared for:\n" +
+        "parent@example.com\n\n" +
+        "In the live version, the contract will be emailed automatically."
+    );
+
+}
+
+
+/* ================= CLOSE MODAL WHEN CLICKING OUTSIDE ================= */
+
+window.onclick = function(event) {
+
+    if(event.target.classList.contains("modal")) {
+
+        event.target.classList.remove("show");
+
     }
 
-    document.querySelectorAll('.profile-tabs button')
-        .forEach(btn=>{
-            btn.classList.remove('active');
-        });
-
-    button.classList.add('active');
-}
-
-
-/* =========================
-   MOBILE SIDEBAR
-========================= */
-
-function toggleSidebar(){
-
-    document.getElementById('sidebar')
-        .classList.toggle('open');
-
-}
+};
 
 </script>
 
